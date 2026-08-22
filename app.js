@@ -1,0 +1,11 @@
+const $ = (selector, context = document) => context.querySelector(selector);
+const toast = (message) => { const el = $('#toast'); el.textContent = message; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 3500); };
+document.querySelectorAll('[data-modal]').forEach((button) => button.addEventListener('click', () => { const modal = $(`#${button.dataset.modal}`); modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false'); }));
+document.querySelectorAll('.modal').forEach((modal) => { modal.addEventListener('click', (e) => { if (e.target === modal || e.target.classList.contains('close')) { modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true'); } }); });
+$('#menuButton').addEventListener('click', () => $('#mainNav').classList.toggle('open'));
+$('#mainNav').addEventListener('click', () => $('#mainNav').classList.remove('open'));
+$('#registrationForm').addEventListener('submit', (e) => { e.preventDefault(); e.target.closest('.modal').classList.remove('open'); e.target.reset(); toast('আপনার আবেদন গ্রহণ করা হয়েছে। Admin যাচাই শেষে জানানো হবে।'); });
+$('#loginForm').addEventListener('submit', (e) => { e.preventDefault(); e.target.closest('.modal').classList.remove('open'); toast('Demo dashboard: সদস্য প্রোফাইল, ledger ও notices শিগগির যুক্ত হবে।'); });
+$('#paymentForm').addEventListener('submit', (e) => { e.preventDefault(); e.target.closest('.modal').classList.remove('open'); toast('Demo payment সফল। রসিদ #NHA-2026-0818 তৈরি হয়েছে।'); });
+$('#newsletter').addEventListener('submit', (e) => { e.preventDefault(); e.target.reset(); toast('নিউজলেটার সাবস্ক্রিপশন সফল হয়েছে।'); });
+$('#languageButton').addEventListener('click', (e) => { e.target.textContent = e.target.textContent === 'EN' ? 'বাং' : 'EN'; toast('পূর্ণ দ্বিভাষিক content management production version-এ সক্রিয় হবে।'); });
